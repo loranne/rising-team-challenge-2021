@@ -1,4 +1,4 @@
-## Task
+# Task
 Home coding exercise (4-8 hours)
 - Magic hat is a game you can play with your team, where you pick a question out of a hat, as a team building exercise. Examples of questions would be “what was your childhood nickname?” Or “what is your favorite emoji and why?”.
 - Can you build a game where the user can do the following:
@@ -17,29 +17,41 @@ Home coding exercise (4-8 hours)
     - If you have a question, note the question, come up with your best guess, and keep going. Feel free to email me with questions but please don't wait for an answer if you are ready to start.
 
 
-## Notes
+# Notes
 - starting with cmd line implementation
 - challenges are:
     - how to get user input while loop is running (questions every x seconds)
-        - need this to get back out to menu
+    - dividing up program into the right functions. be careful they don't creep up in size as I think of other features/needs
+    - right data structure for holding questions info
 - store Qs and asked boolean in dict. structure like: questions = {1 : {text : "What was your childhood nickname?", asked : False}, 2 : {text : ...} }
-    - consider storing values as list instead, for easy indexing
+    - consider storing values as dict, for easy indexing
 - keep tabs on unasked questions in list, perhaps?
 - web scraping? no, I don't remember it very well
-- copy/paste into a CSV, read in from CSV
-- at one point I thought to make a function to populate the questions dict, but then I can't access the whole dict outside the scope of that function
+- copy/paste into a CSV, read in from CSV. Could maybe scrape the website for Qs, but for such a small set, might not be worthwhile.
 
-### Functions I need
-- user input to get question
+## Functions I need
+- populate structure with question 
+- user input to get single or multi-question mode
 - pick question from unused list, use that id to index into the dict
-- mark question used (for dict), also removes from unused list
-- 
+    - mark question used (for dict), also removes from unused list
+- get questions periodicially, based on time input by user
+- play game (calls other functions within)
 
-### Structure
+## Structure
 - dict for questions
 - Key is ID #, value is another dict containing key of "question" and "used", corresponding to question text and boolean of whether or not question has been used this game or not
 - list for QIDs of unused questions
+- write all other functions first, then play game function at end
+- smaller helper functions can go within other function scope (like is_input)
+
+## Extra features
+- user add question
+- user view questions
+- ask X total questions at intervals of Y
+- question packs (i.e. questions on a theme, for a specific type of team, etc.)
 
 ## Questions
 - What do they mean by describe use cases? 
     - Walkthrough all the features and how to use.
+- Do I need to worry about user credentials/types of users?
+    - No, too short a timeframe
