@@ -25,8 +25,22 @@ Home coding exercise (4-8 hours)
 - store Qs and asked boolean in dict. structure like: questions = {1 : {text : "What was your childhood nickname?", asked : False}, 2 : {text : ...} }
     - consider storing values as list instead, for easy indexing
 - keep tabs on unasked questions in list, perhaps?
+- web scraping? no, I don't remember it very well
+- copy/paste into a CSV, read in from CSV
+- at one point I thought to make a function to populate the questions dict, but then I can't access the whole dict outside the scope of that function
+
+
+### Functions I need
+- user input to get question
+- pick question from unused list, use that id to index into the dict
+- mark question used (for dict), also removes from unused list
+- 
+
+### Structure
+- dict for questions
+- Key is ID #, value is another dict containing key of "question" and "used", corresponding to question text and boolean of whether or not question has been used this game or not
+- list for QIDs of unused questions
 
 ## Questions
 - What do they mean by describe use cases? 
-- Do I need to be concerned about multiple users
-- 
+    - Walkthrough all the features and how to use.
