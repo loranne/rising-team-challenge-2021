@@ -44,16 +44,16 @@ def get_play_mode():
     
     #TODO: If time, split into play and settings modes (latter for adding and viewing Qs)
 
-    print("Please type the letter corresponding to an option below, then press 'Return'.\n")
-    print("(A) Get one question. (B) Get new questions continuously, you choose how often. (C) Add your own question. (Q) Quit.")
+    print("\nPlease type the letter corresponding to an option below, then press 'Return'.\n")
+    print("(A) Get one question. (B) Get new questions continuously, you choose how often. (C) Add your own question. (D) View questions. (Q) Quit.")
 
-    options = ("a", "b", "c", "q")
+    options = ("a", "b", "c", "d", "q")
 
     play_mode = input("").lower()
 
     # in case user inputs invalid menu option
     while play_mode not in options:
-        play_mode = input("No such option. Please choose 'A', 'B', 'C', or 'Q'.\n").lower()
+        play_mode = input("No such option. Please choose 'A', 'B', 'C', 'D', or 'Q'.\n").lower()
 
     return play_mode
 
@@ -130,22 +130,60 @@ def get_periodic_questions(questions, unused_qids):
                 break
     
     return
+
+
+def view_questions(questions):
+    """Lets user view all questions"""
+
+    # loop over items in questions dict
+    for key, value in questions.items():
+        # print each question text along with its ID
+        print(str(key) + ") " + value["question"])
     
-#TODO: Add question function goes here
+    return
+
+
+def write_question_csv(user_q, new_id):
+        """Allows user to save their input question to csv for future use"""
+        
+        # open csv. use with for cleanup and automatic closing. "a" option for 
+        # adding to existing file
+        with open("questions.csv", "a") as csvfile:
+            # fields in order for writing
+            fields = [new_id, user_q]
+            writer = csv.writer(csvfile, delimiter="|")
+            writer.writerow(fields)
+
+        return 
+
 
 def add_question(questions, unused_qids):
-    """Takes user input to add new question to game."""
+    """Takes user input to add new question to game. Writes new question to csv
+    on user request."""
 
     # get user question
     user_q = input("Please type your question, then press 'Return'.\n").capitalize()
-    print(user_q)
-
     # find the end of the questions dict to get the id for new question
-    new_id = len(questions)
-    # add to questions dict at new id index
+    # +1 because csv containing ids starts at 1, not 0
+    new_id = len(questions) + 1
+    
+    # add to questions dict at new id 
     questions[new_id] = {"question" : user_q, "used" : False}
     # add new id to unused_qids list for immediate use
     unused_qids.append(new_id)
+    
+    # ask if user wants to save the question to game permanently
+    save_q = input("Would you like to save your question for future use? (Y) / (N)\n").lower()
+    # if yes, call on write function
+    if save_q == "y":
+        write_question_csv(user_q, new_id)
+        print("Question saved!")
+    # if no, pass
+    elif save_q == "n":
+        pass
+    # check for valid input
+    else: 
+        save_q = input("Invalid input. Would you like to save your question for future use? (Y) / (N)\n")
 
     return
 
@@ -154,7 +192,7 @@ def play_game():
     """All together now. Core logic of gameplay loop using supporting functions"""
 
     # welcome message
-    print("Welcome to Magic Hat, the icebreaker question game. Gather your team and get ready to play!\n")
+    print("\nWelcome to Magic Hat, the icebreaker question game. Gather your team and get ready to play!")
 
     # set up dict of Qs and list of unused Qs
     questions, unused_qids = populate_questions()
@@ -167,21 +205,20 @@ def play_game():
         # single question mode
         if play_mode == "a":
             # print questions in yellow
-            utils.print_color(pick_question(questions, unused_qids) + "\n")
-            # prompt user for input again and update play mode
-            play_mode = get_play_mode()
+            utils.print_color(pick_question(questions, unused_qids))
         # periodic question mode
         elif play_mode == "b":
             get_periodic_questions(questions, unused_qids)
-            play_mode = get_play_mode()
         # add new question
         elif play_mode == "c":
             add_question(questions, unused_qids)
-            play_mode = get_play_mode()
+        elif play_mode == "d":
+            view_questions(questions)
         # quit the game
         elif play_mode == "q":
             print("Thanks for playing. Goodbye!")
             quit()
+        play_mode = get_play_mode()
 
     return
 

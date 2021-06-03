@@ -49,6 +49,8 @@ Home coding exercise (4-8 hours)
 - user view questions
 - ask X total questions at intervals of Y
 - question packs (i.e. questions on a theme, for a specific type of team, etc.)
+- user favorite questions
+- user remove questions
 
 ## Questions
 - What do they mean by describe use cases? 
