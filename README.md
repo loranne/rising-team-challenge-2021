@@ -1,3 +1,6 @@
+# Completed Notes
+
+
 # Task
 Home coding exercise (4-8 hours)
 - Magic hat is a game you can play with your team, where you pick a question out of a hat, as a team building exercise. Examples of questions would be “what was your childhood nickname?” Or “what is your favorite emoji and why?”.
@@ -17,7 +20,7 @@ Home coding exercise (4-8 hours)
     - If you have a question, note the question, come up with your best guess, and keep going. Feel free to email me with questions but please don't wait for an answer if you are ready to start.
 
 
-# Notes
+# Thoughts
 - starting with cmd line implementation
 - challenges are:
     - how to get user input while loop is running (questions every x seconds)
