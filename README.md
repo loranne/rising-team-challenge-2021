@@ -45,7 +45,7 @@ Home coding exercise (4-8 hours)
 - smaller helper functions can go within other function scope (like is_input)
 
 ## Extra features
-- user add question
+- ~~user add question~~
 - user view questions
 - ask X total questions at intervals of Y
 - question packs (i.e. questions on a theme, for a specific type of team, etc.)
@@ -55,3 +55,4 @@ Home coding exercise (4-8 hours)
     - Walkthrough all the features and how to use.
 - Do I need to worry about user credentials/types of users?
     - No, too short a timeframe
+- Think about if there's a better way to show "Press 'x'" message during continuous play. Currently pops up along with every question. Could add another sleep?

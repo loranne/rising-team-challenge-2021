@@ -12,6 +12,8 @@ import utils
 def populate_questions():
     """Populates dictionary of questions, IDs, and used values (default to false) 
     using data from CSV file"""
+
+    #TODO: Add more questions
     
     questions = {}
     unused_qids = []
@@ -39,11 +41,19 @@ def populate_questions():
 def get_play_mode():
     """Prints user options for playing the game. Takes user input and returns 
     game mode"""
+    
+    #TODO: If time, split into play and settings modes (latter for adding and viewing Qs)
 
-    print("Please type the letter corresponding to the options below, then press 'Return'.\n")
-    print("(A) Get one question. (B) Get a new questions continuously, you choose how often. (Q) Quit.")
+    print("Please type the letter corresponding to an option below, then press 'Return'.\n")
+    print("(A) Get one question. (B) Get new questions continuously, you choose how often. (C) Add your own question. (Q) Quit.")
+
+    options = ("a", "b", "c", "q")
 
     play_mode = input("").lower()
+
+    # in case user inputs invalid menu option
+    while play_mode not in options:
+        play_mode = input("No such option. Please choose 'A', 'B', 'C', or 'Q'.\n").lower()
 
     return play_mode
 
@@ -119,7 +129,25 @@ def get_periodic_questions(questions, unused_qids):
             if input("").lower() == "x":
                 break
     
+    return
+    
 #TODO: Add question function goes here
+
+def add_question(questions, unused_qids):
+    """Takes user input to add new question to game."""
+
+    # get user question
+    user_q = input("Please type your question, then press 'Return'.\n").capitalize()
+    print(user_q)
+
+    # find the end of the questions dict to get the id for new question
+    new_id = len(questions)
+    # add to questions dict at new id index
+    questions[new_id] = {"question" : user_q, "used" : False}
+    # add new id to unused_qids list for immediate use
+    unused_qids.append(new_id)
+
+    return
 
 
 def play_game():
@@ -146,11 +174,16 @@ def play_game():
         elif play_mode == "b":
             get_periodic_questions(questions, unused_qids)
             play_mode = get_play_mode()
+        # add new question
+        elif play_mode == "c":
+            add_question(questions, unused_qids)
+            play_mode = get_play_mode()
         # quit the game
         elif play_mode == "q":
             print("Thanks for playing. Goodbye!")
             quit()
 
+    return
 
 ####### RUN IT ##########
 
