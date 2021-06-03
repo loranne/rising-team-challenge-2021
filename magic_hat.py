@@ -5,6 +5,7 @@ import random
 import select
 import sys
 import time
+# my own module to convert print statements to color
 import utils
 
 # initialize empty dict, to be populated by reading in CSV
@@ -73,12 +74,15 @@ def pick_question(questions, unused_qids):
     # remove ID from list of unused qs
     unused_qids.remove(q_id)
 
+    # this and line 81 are checking to confirm accurate used state in dict
+    # print(questions[q_id])
+
     # change used state to True
     questions[q_id]["used"] = True
+    # print(questions[q_id])
 
     # return question text
     return ask_q
-    #DONE: handle what happens when unused_qids is empty
 
 
 def get_periodic_questions(questions, unused_qids):
@@ -86,17 +90,17 @@ def get_periodic_questions(questions, unused_qids):
     a new question. Prints questions to console based on time (user input)."""
 
     # user prompt
-    interval = int(input("How often (in minutes) would you like to see a new question?\n"))
+    interval = int(input("How often (in seconds) would you like to see a new question?\n"))
 
     # validate that user entered an int
     while type(interval) is not int:
         print("Please enter a number.")
         interval = input("")
     
-    # convert time to seconds for use with sleep()
-    # TODO: uncomment line 97
+    #TODO: Think about whether to change this back before submitting. if changing, update line 93, too
+    # convert time to seconds for use with sleep(). removed for speed of use and testing
     # interval = interval * 60
-
+    
     # helper function for validating user input during continuous questions
     def is_input():
         """Checks whether there is user input"""
