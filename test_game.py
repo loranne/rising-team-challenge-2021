@@ -11,7 +11,7 @@ while True:
     # if the user only wants questions every 2 minutes, that could mean
     # waiting up to 1:59 for the program to finish this phase
     print("Running")
-    time.sleep(5)
+    time.sleep(20)
 
     if is_data():
         if input().lower() == "x":
