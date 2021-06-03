@@ -1,6 +1,7 @@
 # define dict of question IDs, question text, and bool for used Qs
 # read in as CSV?
 import csv 
+import random
 
 # initialize empty dict, to be populated by reading in CSV
 
@@ -9,7 +10,6 @@ def populate_questions():
     using data from CSV file"""
     
     questions = {}
-
     unused_qids = []
 
     # use csv module to read in data
@@ -31,9 +31,26 @@ def populate_questions():
     # returns both the dict and the list of used_qids for further use in game
     return questions, unused_qids
 
+def pick_question():
+    """Chooses a random question for the team based on list of unused questions.
+    Returns question text."""
+
+    # pick a random ID from list of unused qs
+    q_id = random.choice(unused_qids)
+
+    # find the question text using that ID
+    ask_q = questions[q_id]["question"]
+
+    # remove ID from list of unused qs
+    unused_qids.remove(q_id)
+
+    # return question text
+    return ask_q
+
 
 
 ####### RUN IT ##########
 
 questions, unused_qids = populate_questions()
-print(unused_qids)
+# print(unused_qids)
+print(pick_question())
