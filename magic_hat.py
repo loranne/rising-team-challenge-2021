@@ -5,6 +5,7 @@ import random
 import select
 import sys
 import time
+import utils
 
 # initialize empty dict, to be populated by reading in CSV
 def populate_questions():
@@ -34,14 +35,14 @@ def populate_questions():
     return questions, unused_qids
 
 
-def show_menu():
+def get_play_mode():
     """Prints user options for playing the game. Takes user input and returns 
     game mode"""
 
     print("Please type the letter corresponding to the options below, then press 'Return'.\n")
     print("(A) Get one question. (B) Get a new questions continuously, you choose how often. (Q) Quit.")
 
-    play_mode = input().lower()
+    play_mode = input("").lower()
 
     return play_mode
 
@@ -80,7 +81,7 @@ def pick_question(questions, unused_qids):
     #DONE: handle what happens when unused_qids is empty
 
 
-def get_periodic_questions():
+def get_periodic_questions(questions, unused_qids):
     """Takes in user input on how often (in minutes) the user would like to get 
     a new question. Prints questions to console based on time (user input)."""
 
@@ -90,7 +91,7 @@ def get_periodic_questions():
     # validate that user entered an int
     while type(interval) is not int:
         print("Please enter a number.")
-        interval = input()
+        interval = input("")
     
     # convert time to seconds for use with sleep()
     # TODO: uncomment line 97
@@ -104,40 +105,49 @@ def get_periodic_questions():
 
     # loop for printing questions
     while True:
-        print(pick_question(questions, unused_qids))
+        utils.print_color(pick_question(questions, unused_qids) + "\n")
         print("Press 'X' and then 'Return' any time to stop getting questions.\n")
         # wait however long user said
         time.sleep(interval)
 
         # if there's user input, and it matches the stop command, break
         if is_input():
-            if input().lower() == "x":
+            if input("").lower() == "x":
                 break
     
     # show_menu()
 
 
-# def play_game():
-#     """Handles all functions working together"""
+def play_game():
+    """All together now. Core logic of gameplay loop using supporting functions"""
 
-#     questions, unused_qids = populate_questions()
+    # welcome message
+    print("Welcome to Magic Hat, the icebreaker question game. Gather your team and get ready to play!\n")
 
-    
+    # set up dict of Qs and list of unused Qs
+    questions, unused_qids = populate_questions()
+
+    # get user input on what they'd like to do
+    play_mode = get_play_mode()
+
+    # while there is user input on play mode
+    while play_mode:
+        # single question mode
+        if play_mode == "a":
+            # print questions in yellow
+            utils.print_color(pick_question(questions, unused_qids) + "\n")
+            # prompt user for input again and update play mode
+            play_mode = get_play_mode()
+        # periodic question mode
+        elif play_mode == "b":
+            get_periodic_questions(questions, unused_qids)
+            play_mode = get_play_mode()
+        # quit the game
+        elif play_mode == "q":
+            print("Thanks for playing. Goodbye!")
+            quit()
 
 
 ####### RUN IT ##########
 
-# populate questions first
-questions, unused_qids = populate_questions()
-
-print("Welcome to Magic Hat, the icebreaker question game. Gather your team and get ready to play!\n")
-
-play_mode = show_menu()
-
-if play_mode == "a":
-    print(pick_question(questions, unused_qids))
-elif play_mode == "b":
-    print(get_periodic_questions())
-elif play_mode == "q":
-    print("Thanks for playing. Goodbye!")
-    quit()
+game = play_game()
