@@ -119,7 +119,7 @@ def get_periodic_questions(questions, unused_qids):
             if input("").lower() == "x":
                 break
     
-    # show_menu()
+#TODO: Add question function goes here
 
 
 def play_game():
