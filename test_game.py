@@ -14,5 +14,5 @@ while True:
     time.sleep(5)
 
     if is_data():
-        key_pressed = input()
-        break
+        if input().lower() == "x":
+            break

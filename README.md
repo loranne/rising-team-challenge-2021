@@ -29,7 +29,6 @@ Home coding exercise (4-8 hours)
 - copy/paste into a CSV, read in from CSV
 - at one point I thought to make a function to populate the questions dict, but then I can't access the whole dict outside the scope of that function
 
-
 ### Functions I need
 - user input to get question
 - pick question from unused list, use that id to index into the dict
